@@ -31,8 +31,14 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: build
-        run: cd ./packages/json-to-typeddict && pnpm type:gen
+        run: cd ./packages/json-to-typeddict && pnpm build
 
+      - name: Gather publish files
+        run: |
+          cd ./packages/json-to-typeddict
+          find . ! \( -name 'dist' -o -name 'package.json' \) -mindepth 1 -maxdepth 1 -exec rm -r {} \;
+          mv ../../README.md README.md
+          mv ../../LICENSE LICENSE
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
