@@ -37,8 +37,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: cd ./packages/json-to-typeddict && pnpm update:version
-          publish: cd ./packages/json-to-typeddict && pnpm release
+          version: pnpm update:version
+          publish: pnpm release
           commit: "chore: release json-to-typeddict"
           title: "chore: release json-to-typeddict"
         env:
@@ -46,7 +46,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: create coverage report
-        run: cd ./packages/json-to-typeddict && pnpm test:coverage
+        run: pnpm test:coverage
         working-directory: ./packages/json-to-typeddict
 
       - name: Coveralls GitHub Action
