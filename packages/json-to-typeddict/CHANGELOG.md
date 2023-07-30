@@ -1,5 +1,11 @@
 # json-to-typeddict
 
+## 0.2.1
+
+### Patch Changes
+
+- 4525432: fix: fix bin command
+
 ## 0.2.0
 
 ### Minor Changes
