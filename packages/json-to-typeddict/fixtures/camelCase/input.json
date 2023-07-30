@@ -1,0 +1,12 @@
+{
+  "name": "John",
+  "age": 30,
+  "pets": ["dog", "cat"],
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "postalCode": "10001"
+  },
+  "isEmployed": true,
+  "vehicles": null
+}

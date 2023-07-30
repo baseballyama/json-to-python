@@ -42,13 +42,38 @@ const parseJson = (jsonAsString) => {
 };
 
 /**
+ * @param {string} propertyName
+ * @param {Config} config
+ * @returns {string}
+ */
+const normalizePropertyName = (propertyName, config) => {
+  if (config.casing === "none") return propertyName;
+  if (config.casing === "snake") {
+    return propertyName
+      .split("-")
+      .map((n) => n.split(/(?=[A-Z])/))
+      .flat()
+      .join("_")
+      .toLowerCase();
+  }
+
+  return propertyName
+    .split("-")
+    .map((n) => n.split("_"))
+    .flat()
+    .map((n, i) => (i === 0 ? n : n.charAt(0).toUpperCase() + n.slice(1)))
+    .join("");
+};
+
+/**
  *
  * @param {Record<string, unknown>} json
  * @param {string} className
  * @param {PythonClass[]} classes
+ * @param {Config} config
  * @returns {PythonClass[]}
  */
-const generateClass = (json, className, classes) => {
+const generateClass = (json, className, classes, config) => {
   let mClasses = [...classes];
 
   /**
@@ -107,7 +132,8 @@ const generateClass = (json, className, classes) => {
       mClasses = generateClass(
         /** @type {any} */ (value),
         innerClassName,
-        mClasses
+        mClasses,
+        config
       );
       return innerClassName;
     }
@@ -129,7 +155,8 @@ const generateClass = (json, className, classes) => {
     for (const key of keys) {
       const value = json[key];
       const pyTyoe = getPyType(key, value, className);
-      pythonClass.content += `  ${key}: ${pyTyoe}\n`;
+      const name = normalizePropertyName(key, config);
+      pythonClass.content += `  ${name}: ${pyTyoe}\n`;
     }
   }
 
@@ -142,11 +169,10 @@ const generateClass = (json, className, classes) => {
  * @param {Config} config
  */
 export const generate = (jsonAsString, className, config = {}) => {
-  console.debug(config);
   const json = parseJson(jsonAsString);
   className = normalizeClassName(className);
 
-  const classes = generateClass(json, className, []);
+  const classes = generateClass(json, className, [], config);
 
   return (
     getTemplate() +

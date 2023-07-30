@@ -34,6 +34,8 @@ describe("fixture test", () => {
     it(dir, () => {
       const dirName = dir.split("/").pop() ?? "";
       const files = getFiles(dir);
+      const configPath =
+        files.find((file) => file.endsWith("config.json")) ?? "";
       const inputPath = files.find((file) => file.endsWith("input.json")) ?? "";
       const expectedPath =
         files.find((file) => file.endsWith("expected.py")) ?? "";
@@ -41,9 +43,12 @@ describe("fixture test", () => {
       expect(inputPath).toBeTruthy();
       expect(expectedPath).toBeTruthy();
 
+      const consig = configPath
+        ? JSON.parse(readFileSync(configPath, "utf-8"))
+        : {};
       const input = readFileSync(inputPath, "utf-8");
       const expected = readFileSync(expectedPath, "utf-8");
-      const actual = generate(input, capitalize(dirName));
+      const actual = generate(input, capitalize(dirName), consig);
       writeFileSync(`./fixtures/${dirName}/actual.py`, actual);
       expect(actual).toBe(expected);
     });
