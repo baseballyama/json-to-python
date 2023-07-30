@@ -26,11 +26,11 @@
 		onChange(editor, tr);
 	};
 
-	$: if (mounted && doc != undefined) {
-		if (view == null) {
-			view = initEditorView(doc, extensions, dom, editorTxHandler);
-		} else {
-			setText(view, doc);
+	$: {
+		if (mounted && doc != undefined) {
+			if (view == null) {
+				view = initEditorView(doc, extensions, dom, editorTxHandler);
+			}
 		}
 	}
 

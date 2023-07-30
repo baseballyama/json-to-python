@@ -70,7 +70,9 @@
 	<div class="editor-wrapper">
 		<div>
 			<h2>Python TypedDict (Generated)</h2>
-			<Editor doc={python} />
+			{#key python}
+				<Editor doc={python} />
+			{/key}
 		</div>
 	</div>
 </section>
