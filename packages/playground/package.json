@@ -2,6 +2,7 @@
 	"name": "playground",
 	"version": "0.0.1",
 	"private": true,
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build:json-to-typeddict": "cd ../json-to-typeddict && pnpm build && cd ../playground",
