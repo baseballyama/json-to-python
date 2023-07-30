@@ -7,4 +7,9 @@ Simple utility to convert JSON to Python TypedDict
 
 # Playground
 
-TBD...
+https://baseballyama.github.io/json-to-typeddict/
+
+# Roadmap
+
+- [ ] Support casing (camelCase and snake_case)
+- [ ] CLI mode (It allows to convert a whole directory)
