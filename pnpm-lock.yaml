@@ -22,7 +22,7 @@ importers:
         specifier: 20.4.5
         version: 20.4.5
       '@vitest/coverage-v8':
-        specifier: ^0.33.0
+        specifier: 0.33.0
         version: 0.33.0(vitest@0.33.0)
       prettier:
         specifier: 3.0.0
@@ -37,11 +37,7 @@ importers:
         specifier: 0.33.0
         version: 0.33.0
 
-  packages/json-to-typeddict:
-    devDependencies:
-      '@vitest/coverage-v8':
-        specifier: ^0.33.0
-        version: 0.33.0(vitest@0.33.0)
+  packages/json-to-typeddict: {}
 
   packages/playground:
     dependencies:
