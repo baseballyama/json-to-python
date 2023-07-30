@@ -6,6 +6,7 @@
 	import { generate } from 'json-to-typeddict';
 
 	let mainCLassName = 'Main';
+	let casing = 'none';
 	let doc = JSON.stringify(
 		{
 			name: 'John',
@@ -23,67 +24,105 @@
 		null,
 		2
 	);
-	let python = generate(doc, mainCLassName);
+	let python = generate(doc, mainCLassName, { casing });
 
 	const changeHandler = (_: EditorView, tr: Transaction) => {
 		doc = tr.state.doc.toString();
 	};
 
 	$: {
-		if (mainCLassName && doc) {
+		if (mainCLassName && doc && casing) {
 			try {
-				python = generate(doc, mainCLassName);
+				python = generate(doc, mainCLassName, { casing });
 			} catch (e) {}
 		}
 	}
 </script>
 
-<header class="header">
-	<h1>JSON to Python TypedDict Converter</h1>
-	<div class="gh-wrapper">
-		<GitHub href="https://github.com/baseballyama/json-to-typeddict" />
-	</div>
-</header>
+<div class="wrapper">
+	<div class="content">
+		<header class="header">
+			<h1>JSON to Python TypedDict Converter</h1>
+			<div class="gh-wrapper">
+				<GitHub href="https://github.com/baseballyama/json-to-typeddict" />
+			</div>
+		</header>
 
-<section class="config">
-	<h2>Configuration</h2>
-	<form on:submit|preventDefault>
-		<label for="mainClassName">Main Class Name:</label>
-		<input
-			type="text"
-			id="mainClassName"
-			name="mainClassName"
-			required
-			bind:value={mainCLassName}
-		/>
-	</form>
-</section>
+		<section class="config">
+			<h2>Configuration</h2>
+			<form on:submit|preventDefault>
+				<div class="form-item">
+					<label for="mainClassName">Main Class Name:</label>
+					<input
+						type="text"
+						id="mainClassName"
+						name="mainClassName"
+						required
+						bind:value={mainCLassName}
+					/>
+				</div>
+				<div class="form-item">
+					<label for="casing">Casing:</label>
+					<select id="casing" name="selection" bind:value={casing}>
+						<option value="none" selected>None</option>
+						<option value="camel">Camel</option>
+						<option value="snake">Snake</option>
+					</select>
+				</div>
+			</form>
+		</section>
 
-<section class="editors">
-	<div class="editor-wrapper">
-		<div>
-			<h2>JSON</h2>
-			<Editor {doc} onChange={changeHandler}></Editor>
-		</div>
+		<section class="editors">
+			<div class="editor-wrapper">
+				<div>
+					<h2>JSON</h2>
+					<Editor {doc} onChange={changeHandler}></Editor>
+				</div>
+			</div>
+			<div class="arrow arrow-pc">→</div>
+			<div class="arrow arrow-sp">↓</div>
+			<div class="editor-wrapper">
+				<div>
+					<h2>Python TypedDict (Generated)</h2>
+					{#key python}
+						<Editor doc={python} />
+					{/key}
+				</div>
+			</div>
+		</section>
 	</div>
-	<div class="arrow">→</div>
-	<div class="editor-wrapper">
-		<div>
-			<h2>Python TypedDict (Generated)</h2>
-			{#key python}
-				<Editor doc={python} />
-			{/key}
-		</div>
-	</div>
-</section>
 
-<footer class="footer">
-	<a href="https://github.com/baseballyama" target="_blank" rel="noopener noreferrer">
-		Created by baseballyama
-	</a>
-</footer>
+	<footer class="footer">
+		<a href="https://github.com/baseballyama" target="_blank" rel="noopener noreferrer">
+			Created by baseballyama
+		</a>
+	</footer>
+</div>
 
 <style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+	}
+
+	.wrapper {
+		height: 100vh;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.content {
+		flex: 1 0 auto;
+	}
+
+	.footer {
+		width: calc(100% - 32px);
+		padding: 8px 16px;
+		text-align: center;
+		flex-shrink: 0;
+	}
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -92,6 +131,7 @@
 	}
 
 	.gh-wrapper {
+		margin-left: 16px;
 		height: 32px;
 		width: 32px;
 	}
@@ -103,19 +143,38 @@
 		border-radius: 8px;
 	}
 
+	.form-item {
+		padding: 0 4px 4px 4px;
+		display: flex;
+		align-items: center;
+	}
+
+	.form-item > label {
+		display: inline-block;
+		width: 160px;
+	}
+
 	.editors {
 		display: flex;
 	}
 
 	.editors > * {
 		display: flex;
-		align-items: center;
+		align-items: top;
 	}
 
 	.editors > .arrow {
 		font-size: 24px;
 		font-weight: 900;
-		margin: 0 8px;
+	}
+
+	.editors > .arrow-pc {
+		height: 100%;
+		margin: auto 8px;
+	}
+
+	.editors > .arrow-sp {
+		margin: 8px auto;
 	}
 
 	.editors > .editor-wrapper {
@@ -130,12 +189,21 @@
 		width: 100%;
 	}
 
-	.footer {
-		width: calc(100% - 32px);
-		padding: 8px 16px;
-		text-align: center;
-		position: absolute;
-		bottom: 0;
-		left: 0;
+	@media (max-width: 767px) {
+		.editors {
+			flex-direction: column;
+		}
+		.arrow-pc {
+			display: none;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.editors {
+			flex-direction: row;
+		}
+		.arrow-sp {
+			display: none;
+		}
 	}
 </style>
