@@ -5,7 +5,9 @@
   "type": "module",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
-  "bin": "./dist/cli.mjs",
+  "bin": {
+    "json-to-typeddict": "./dist/cli.mjs"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -21,11 +23,5 @@
     "publish:check": "publint",
     "test:all": "pnpm format:check && pnpm test && pnpm build && pnpm publish:check",
     "build": "rm -rf dist && tsc -P tsconfig.json"
-  },
-  "dependencies": {
-    "publint": "^0.2.0"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "^0.33.0"
   }
 }
