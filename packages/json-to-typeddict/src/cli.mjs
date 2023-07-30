@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * usage: npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
  */

@@ -20,13 +20,17 @@ In other words, I want to convert JSON to TypedDict, but I could not find an eas
 # Usage
 
 This library supports browser execution and CLI execution.
-To execute in a browser, please execute from the [Playground](#Playground).
+To execute in a browser, please execute from the [Playground](https://baseballyama.github.io/json-to-typeddict/).
 To execute via CLI, use the following command.
 
 ```sh
 npx json-to-typeddict <json-dir> <output-dir>
 npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
 ```
+
+# Changlog
+
+Please see [./packages/json-to-typeddict/CHANGELOG.md](./packages/json-to-typeddict/CHANGELOG.md)
 
 # Contributing
 
