@@ -17,7 +17,8 @@
 				postalCode: '10001'
 			},
 			isEmployed: true,
-			vehicles: null
+			vehicles: null,
+			extra: ['hello', 1, true]
 		},
 		null,
 		2
