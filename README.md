@@ -10,7 +10,24 @@ Simple utility to convert JSON to Python TypedDict
 
 https://baseballyama.github.io/json-to-typeddict/
 
-# Roadmap
+# Motivation
 
-- [ ] Support casing (camelCase and snake_case)
-- [ ] CLI mode (It allows to convert a whole directory)
+I am an engineer who likes types, and with the recent AI boom, I have been working with Python more and more.
+When developing functions using AI, there are opportunities to communicate with external APIs, such as calling the API of a vector database server.
+If the official SDK is not provided, we will need to execute the API yourself. I wanted to use types this request and response.
+In other words, I want to convert JSON to TypedDict, but I could not find an easy way to achieve this. So I decided to implement this myself.
+
+# Usage
+
+This library supports browser execution and CLI execution.
+To execute in a browser, please execute from the [Playground](#Playground).
+To execute via CLI, use the following command.
+
+```sh
+npx json-to-typeddict <json-dir> <output-dir>
+npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
+```
+
+# Contributing
+
+If you find a bug or new feature request, please feel free to open an issue. PR is also welcome.
