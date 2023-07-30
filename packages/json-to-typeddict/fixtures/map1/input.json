@@ -1,0 +1,9 @@
+{
+  "name": "Mr Robot",
+  "age": 18,
+  "loggedIn": true,
+  "additionalInfo": {
+    "favoriteFood": "Pizza",
+    "favoriteMovie": "The Matrix"
+  }
+}

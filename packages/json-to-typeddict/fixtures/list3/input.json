@@ -1,0 +1,3 @@
+{
+  "data": [1, "John", true, null, { "age": 30 }]
+}
