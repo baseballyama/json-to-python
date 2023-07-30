@@ -5,7 +5,9 @@
   "type": "module",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
-  "bin": "./dist/cli.mjs",
+  "bin": {
+    "json-to-typeddict": "./dist/cli.mjs"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
