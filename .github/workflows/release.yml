@@ -50,6 +50,6 @@ jobs:
         working-directory: ./packages/json-to-typeddict
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2.2.1
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
