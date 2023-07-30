@@ -6,6 +6,7 @@
 	import { generate } from 'json-to-typeddict';
 
 	let mainCLassName = 'Main';
+	let casing = 'none';
 	let doc = JSON.stringify(
 		{
 			name: 'John',
@@ -23,16 +24,16 @@
 		null,
 		2
 	);
-	let python = generate(doc, mainCLassName);
+	let python = generate(doc, mainCLassName, { casing });
 
 	const changeHandler = (_: EditorView, tr: Transaction) => {
 		doc = tr.state.doc.toString();
 	};
 
 	$: {
-		if (mainCLassName && doc) {
+		if (mainCLassName && doc && casing) {
 			try {
-				python = generate(doc, mainCLassName);
+				python = generate(doc, mainCLassName, { casing });
 			} catch (e) {}
 		}
 	}
@@ -48,14 +49,24 @@
 <section class="config">
 	<h2>Configuration</h2>
 	<form on:submit|preventDefault>
-		<label for="mainClassName">Main Class Name:</label>
-		<input
-			type="text"
-			id="mainClassName"
-			name="mainClassName"
-			required
-			bind:value={mainCLassName}
-		/>
+		<div class="form-item">
+			<label for="mainClassName">Main Class Name:</label>
+			<input
+				type="text"
+				id="mainClassName"
+				name="mainClassName"
+				required
+				bind:value={mainCLassName}
+			/>
+		</div>
+		<div class="form-item">
+			<label for="casing">Casing:</label>
+			<select id="casing" name="selection" bind:value={casing}>
+				<option value="none" selected>None</option>
+				<option value="camel">Camel</option>
+				<option value="snake">Snake</option>
+			</select>
+		</div>
 	</form>
 </section>
 
@@ -103,13 +114,24 @@
 		border-radius: 8px;
 	}
 
+	.form-item {
+		padding: 0 4px 4px 4px;
+		display: flex;
+		align-items: center;
+	}
+
+	.form-item > label {
+		display: inline-block;
+		width: 160px;
+	}
+
 	.editors {
 		display: flex;
 	}
 
 	.editors > * {
 		display: flex;
-		align-items: center;
+		align-items: top;
 	}
 
 	.editors > .arrow {
