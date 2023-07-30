@@ -1,7 +1,7 @@
 {
   "name": "json-to-typeddict",
   "description": "Simple utility to convert JSON to Python TypedDict",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
