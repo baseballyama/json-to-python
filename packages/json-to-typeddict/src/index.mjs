@@ -3,6 +3,10 @@
  */
 
 /**
+ * @typedef {{ casing?: "camel" | "snake" | "none";}} Config
+ */
+
+/**
  * @param {string} className
  * @returns {string}
  */
@@ -103,7 +107,7 @@ const generateClass = (json, className, classes) => {
       mClasses = generateClass(
         /** @type {any} */ (value),
         innerClassName,
-        mClasses,
+        mClasses
       );
       return innerClassName;
     }
@@ -138,6 +142,7 @@ const generateClass = (json, className, classes) => {
  * @param {Config} config
  */
 export const generate = (jsonAsString, className, config = {}) => {
+  console.debug(config);
   const json = parseJson(jsonAsString);
   className = normalizeClassName(className);
 
