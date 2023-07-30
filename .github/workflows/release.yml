@@ -31,15 +31,14 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: build
-        run: pnpm type:gen
-        working-directory: ./package/json-to-typeddict
+        run: cd ./package/json-to-typeddict && pnpm type:gen
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm update:version
-          publish: pnpm release
+          version: cd ./package/json-to-typeddict && pnpm update:version
+          publish: cd ./package/json-to-typeddict && pnpm release
           commit: "chore: release json-to-typeddict"
           title: "chore: release json-to-typeddict"
         env:
@@ -47,7 +46,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: create coverage report
-        run: pnpm test:coverage
+        run: cd ./package/json-to-typeddict && pnpm test:coverage
         working-directory: ./package/json-to-typeddict
 
       - name: Coveralls GitHub Action
