@@ -54,7 +54,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm update:version
-          publish: pnpm release
+          publish: pnpm release -r
           commit: "chore: release json-to-typeddict"
           title: "chore: release json-to-typeddict"
         env:
