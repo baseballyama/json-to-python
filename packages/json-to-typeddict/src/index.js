@@ -103,7 +103,7 @@ const generateClass = (json, className, classes) => {
       mClasses = generateClass(
         /** @type {any} */ (value),
         innerClassName,
-        mClasses
+        mClasses,
       );
       return innerClassName;
     }
