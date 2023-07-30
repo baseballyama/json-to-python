@@ -1,0 +1,32 @@
+name: deploy-to-github-pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: packages/playground
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup node.js
+        uses: actions/setup-node@v3.6.0
+
+      - name: setup app env
+        run: pnpm install --frozen-lockfile
+
+      - name: build static resources
+        run: pnpm build
+
+      - name: deploy to github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
