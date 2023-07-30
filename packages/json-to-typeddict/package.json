@@ -20,9 +20,7 @@
     "coverage": "vitest run --coverage",
     "publish:check": "publint",
     "test:all": "pnpm format:check && pnpm test && pnpm type:gen && pnpm publish:check",
-    "type:gen": "rm -rf dist && tsc -P tsconfig.json --emitDeclarationOnly",
-    "update:version": "changeset version",
-    "release": "changeset publish"
+    "type:gen": "rm -rf dist && tsc -P tsconfig.json --emitDeclarationOnly"
   },
   "dependencies": {
     "publint": "^0.2.0"
