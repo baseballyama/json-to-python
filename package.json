@@ -1,5 +1,5 @@
 {
-  "name": "json-to-typeddict",
+  "name": "json-to-typeddict-packages",
   "version": "0.0.1",
   "description": "Simple utility to convert JSON to Python TypedDict",
   "main": "index.js",

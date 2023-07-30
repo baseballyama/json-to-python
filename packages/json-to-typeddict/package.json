@@ -1,6 +1,10 @@
 {
   "name": "json-to-typeddict",
   "version": "0.0.0",
+  "exports": {
+    ".": "./src/index.js"
+
+  },
   "scripts": {
     "format:fix": "prettier --cache --write \"./src/**/*.{js,ts,json}\"",
     "format:check": "prettier --cache --check \"./src/**/*.{js,ts,json}\"",

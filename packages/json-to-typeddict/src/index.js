@@ -33,7 +33,6 @@ const parseJson = (jsonAsString) => {
   try {
     return JSON.parse(jsonAsString);
   } catch (e) {
-    console.error(e);
     throw new Error("Failed to parse JSON");
   }
 };
@@ -104,7 +103,7 @@ const generateClass = (json, className, classes) => {
       mClasses = generateClass(
         /** @type {any} */ (value),
         innerClassName,
-        mClasses,
+        mClasses
       );
       return innerClassName;
     }
