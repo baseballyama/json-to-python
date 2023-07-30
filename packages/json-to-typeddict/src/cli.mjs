@@ -14,14 +14,15 @@ import { generate } from "./index.mjs";
 
 /**
  * @param {string[]} args
- * @returns {string}
+ * @returns {NonNullable<Parameters<typeof generate>[2]>["casing"]}
  */
 const getCasing = (args) => {
   const casingIndex = args.indexOf("--casing");
   if (casingIndex === -1 || casingIndex === args.length - 1) {
-    return "camel";
+    return "none";
   }
-  return args[casingIndex + 1] ?? "camel";
+  // @ts-ignore
+  return args[casingIndex + 1] ?? "none";
 };
 
 /**
@@ -51,6 +52,8 @@ const args = process.argv.slice(2);
 const jsonDir = args[0];
 const outputDir = args[1];
 const casing = getCasing(args);
+/** @type {NonNullable<Parameters<typeof generate>[2]>} */
+const config = casing ? { casing } : {};
 
 if (!jsonDir || !existsSync(jsonDir)) {
   throw new Error("Please set a valid JSON directory");
@@ -65,7 +68,7 @@ if (!existsSync(outputDir)) {
 for (const jsonFile of getJsonFiles(jsonDir)) {
   const json = readFileSync(jsonFile, "utf-8");
   const className = basename(jsonFile).split(".").slice(0, -1).join(".");
-  const python = generate(json, className);
+  const python = generate(json, className, config);
   const outputDirPath = join(outputDir, relative(jsonDir, dirname(jsonFile)));
 
   if (!existsSync(outputDirPath)) mkdirSync(outputDirPath, { recursive: true });
