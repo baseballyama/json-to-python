@@ -1,7 +1,7 @@
 {
   "name": "json-to-python",
   "description": "Simple utility to convert JSON to Python TypedDict or dataclass",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
