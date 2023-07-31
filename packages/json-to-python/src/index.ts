@@ -1,4 +1,4 @@
-import { Config, generate } from "./main";
+import { Config, generate } from "./main.js";
 import {
   readdirSync,
   readFileSync,
