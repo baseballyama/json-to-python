@@ -1,16 +1,13 @@
-/**
- * @typedef {{className: string, content: string}} PythonClass
- */
+export interface Config {
+  casing?: "camel" | "snake" | "none";
+}
 
-/**
- * @typedef {{ casing?: "camel" | "snake" | "none";}} Config
- */
+interface PythonClass {
+  className: string;
+  content: string;
+}
 
-/**
- * @param {string} className
- * @returns {string}
- */
-const normalizeClassName = (className) => {
+const normalizeClassName = (className: string): string => {
   const parts = className
     .split("_")
     .map((part) => part.split("-"))
@@ -20,20 +17,12 @@ const normalizeClassName = (className) => {
     .join("");
 };
 
-/**
- * @returns {string}
- */
-const getTemplate = () => `\
+const getTemplate = (): string => `\
 from typing import TypedDict, Union, Any
 
 `;
 
-/**
- *
- * @param {string} jsonAsString
- * @returns {Record<string, unknown>}
- */
-const parseJson = (jsonAsString) => {
+const parseJson = (jsonAsString: string): Record<string, unknown> => {
   try {
     return JSON.parse(jsonAsString);
   } catch (e) {
@@ -41,12 +30,10 @@ const parseJson = (jsonAsString) => {
   }
 };
 
-/**
- * @param {string} propertyName
- * @param {Config} config
- * @returns {string}
- */
-const normalizePropertyName = (propertyName, config) => {
+const normalizePropertyName = (
+  propertyName: string,
+  config: Config,
+): string => {
   if (config.casing === "none") return propertyName;
   if (config.casing === "snake") {
     return propertyName
@@ -65,24 +52,19 @@ const normalizePropertyName = (propertyName, config) => {
     .join("");
 };
 
-/**
- *
- * @param {Record<string, unknown>} json
- * @param {string} className
- * @param {PythonClass[]} classes
- * @param {Config} config
- * @returns {PythonClass[]}
- */
-const generateClass = (json, className, classes, config) => {
+const generateClass = (
+  json: Record<string, unknown>,
+  className: string,
+  classes: PythonClass[],
+  config: Config,
+): PythonClass[] => {
   let mClasses = [...classes];
 
-  /**
-   * @param {string} key
-   * @param {unknown} value
-   * @param {string} className
-   * @returns {string}
-   */
-  const getPyType = (key, value, className) => {
+  const getPyType = (
+    key: string,
+    value: unknown,
+    className: string,
+  ): string => {
     const type = typeof value;
     if (value == null) {
       return "None";
@@ -129,12 +111,7 @@ const generateClass = (json, className, classes, config) => {
       return "bool";
     } else if (type === "object") {
       const innerClassName = className + normalizeClassName(key);
-      mClasses = generateClass(
-        /** @type {any} */ (value),
-        innerClassName,
-        mClasses,
-        config
-      );
+      mClasses = generateClass(value as any, innerClassName, mClasses, config);
       return innerClassName;
     }
     console.error(`Unknown type ${type}`);
@@ -142,8 +119,7 @@ const generateClass = (json, className, classes, config) => {
   };
 
   className = normalizeClassName(className);
-  /** @type {PythonClass} */
-  const pythonClass = {
+  const pythonClass: PythonClass = {
     className,
     content: `class ${className}(TypedDict):\n`,
   };
@@ -163,12 +139,11 @@ const generateClass = (json, className, classes, config) => {
   return mClasses;
 };
 
-/**
- * @param {string} jsonAsString
- * @param {string} className
- * @param {Config} config
- */
-export const generate = (jsonAsString, className, config = {}) => {
+export const generate = (
+  jsonAsString: string,
+  className: string,
+  config: Config = {},
+) => {
   const json = parseJson(jsonAsString);
   className = normalizeClassName(className);
 

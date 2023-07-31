@@ -4,22 +4,23 @@
   "version": "0.3.0",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "json-to-typeddict": "./dist/cli.mjs"
+    "json-to-typeddict": "./dist/cli.js"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
     "format:fix": "prettier --cache --write \"./src/**/*.{js,ts,json}\"",
     "format:check": "prettier --cache --check \"./src/**/*.{js,ts,json}\"",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "publish:check": "publint",
     "test:all": "pnpm format:check && pnpm test && pnpm build && pnpm publish:check",

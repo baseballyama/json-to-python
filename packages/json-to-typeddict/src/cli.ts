@@ -12,28 +12,21 @@ import {
   writeFileSync,
 } from "fs";
 import { join, extname, relative, dirname, basename } from "path";
-import { generate } from "./index.mjs";
+import { generate, type Config } from "./index";
 
-/**
- * @param {string[]} args
- * @returns {NonNullable<Parameters<typeof generate>[2]>["casing"]}
- */
-const getCasing = (args) => {
+type Casing = NonNullable<Config["casing"]>;
+
+const getCasing = (args: string[]): Casing => {
   const casingIndex = args.indexOf("--casing");
   if (casingIndex === -1 || casingIndex === args.length - 1) {
     return "none";
   }
-  // @ts-ignore
-  return args[casingIndex + 1] ?? "none";
+
+  return (args[casingIndex + 1] ?? "none") as Casing;
 };
 
-/**
- * @param {string} dir
- * @returns {string[]}
- */
-const getJsonFiles = (dir) => {
-  /** @type {string[]} */
-  let filesToReturn = [];
+const getJsonFiles = (dir: string): string[] => {
+  let filesToReturn: string[] = [];
   const files = readdirSync(dir);
 
   for (let file of files) {
@@ -54,8 +47,7 @@ const args = process.argv.slice(2);
 const jsonDir = args[0];
 const outputDir = args[1];
 const casing = getCasing(args);
-/** @type {NonNullable<Parameters<typeof generate>[2]>} */
-const config = casing ? { casing } : {};
+const config: Config = casing ? { casing } : {};
 
 if (!jsonDir || !existsSync(jsonDir)) {
   throw new Error("Please set a valid JSON directory");
