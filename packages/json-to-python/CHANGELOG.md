@@ -1,5 +1,11 @@
 # json-to-python
 
+## 0.5.0
+
+### Minor Changes
+
+- [#18](https://github.com/baseballyama/json-to-python/pull/18) [`473f66a`](https://github.com/baseballyama/json-to-python/commit/473f66a5a1c6e8a179c8bdfe2acfc95b2820e444) Thanks [@baseballyama](https://github.com/baseballyama)! - feat: support folder conversion in library mode
+
 ## 0.4.0
 
 ### Minor Changes
