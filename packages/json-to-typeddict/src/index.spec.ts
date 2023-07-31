@@ -3,31 +3,20 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { generate } from "./index";
 
-/**
- * @param {string} pathToDir
- * @returns {string[]}
- */
-const getDirectories = (pathToDir) => {
+const getDirectories = (pathToDir: string): string[] => {
   return readdirSync(pathToDir, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => join(pathToDir, dirent.name));
 };
 
-/**
- * @param {string} pathToDir
- * @returns {string[]}
- */
-const getFiles = (pathToDir) => {
+const getFiles = (pathToDir: string): string[] => {
   return readdirSync(pathToDir, { withFileTypes: true })
     .filter((dirent) => dirent.isFile())
     .map((dirent) => join(pathToDir, dirent.name));
 };
 
-/**
- * @param {string} str
- * @returns {string}
- */
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);
 
 describe("fixture test", () => {
   for (const dir of getDirectories("./fixtures")) {
