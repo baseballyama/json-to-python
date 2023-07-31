@@ -3,16 +3,9 @@
 /**
  * usage: npx json-to-python <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
  */
-import {
-  readdirSync,
-  readFileSync,
-  existsSync,
-  statSync,
-  mkdirSync,
-  writeFileSync,
-} from "fs";
-import { join, extname, relative, dirname, basename } from "path";
-import { generate, type Config } from "./index";
+import { readdirSync, existsSync, statSync, mkdirSync } from "fs";
+import { join, extname } from "path";
+import { bulkGenerate, type Config } from "./index";
 
 type Casing = NonNullable<Config["casing"]>;
 type Generate = NonNullable<Config["generate"]>;
@@ -70,14 +63,4 @@ if (!existsSync(outputDir)) {
   mkdirSync(outputDir, { recursive: true });
 }
 
-for (const jsonFile of getJsonFiles(jsonDir)) {
-  const json = readFileSync(jsonFile, "utf-8");
-  const className = basename(jsonFile).split(".").slice(0, -1).join(".");
-  const python = generate(json, className, config);
-  const outputDirPath = join(outputDir, relative(jsonDir, dirname(jsonFile)));
-
-  if (!existsSync(outputDirPath)) mkdirSync(outputDirPath, { recursive: true });
-  const output = join(outputDirPath, `${className}.py`);
-  writeFileSync(output, python, "utf-8");
-  console.log(`Generated ${output}`);
-}
+bulkGenerate(jsonDir, outputDir, config);

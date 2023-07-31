@@ -19,13 +19,57 @@ In other words, I want to convert JSON to TypedDict, but I could not find an eas
 
 # Usage
 
-This library supports browser execution and CLI execution.
+This library supports browser execution and CLI execution and library mode.
+
+**Browser Execution**
+
 To execute in a browser, please execute from the [Playground](https://baseballyama.github.io/json-to-python/).
+
+**CLI**
+
 To execute via CLI, use the following command.
 
 ```sh
 npx json-to-python <json-dir> <output-dir>
 npx json-to-python <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
+```
+
+**Library**
+
+To use this repository as a library, at first, please install this repository.
+
+```sh
+npm install json-to-python
+```
+
+Then, for converting single JSON, please use the library like below.
+
+```js
+import { generate } from "json-to-python/browser";
+
+const jsonString = JSON.stringify({ name: "Mr X", age: 30, city: "New York" });
+const className = "Main";
+const config = {
+  casing: "camel",
+  generate: "typeddict",
+};
+const python = generate(jsonString, className, config);
+```
+
+For converting a folder, please use the library like below.
+
+```js
+import { bulkGenerate } from "json-to-python";
+
+const config = {
+  casing: "camel",
+  generate: "typeddict",
+};
+const python = bulkGenerate(
+  "./path_to_input_dir",
+  "./path_to_output_dir",
+  config
+);
 ```
 
 # Changelog
