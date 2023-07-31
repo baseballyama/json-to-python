@@ -1,6 +1,6 @@
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Build Status](https://github.com/baseballyama/json-to-typeddict/workflows/CI/badge.svg?branch=main)](https://github.com/baseballyama/json-to-typeddict/actions?query=workflow:ci)
-[![Coverage Status](https://coveralls.io/repos/github/baseballyama/json-to-typeddict/badge.svg?branch=main)](https://coveralls.io/github/baseballyama/json-to-typeddict?branch=main)
+[![Build Status](https://github.com/baseballyama/json-to-python/workflows/CI/badge.svg?branch=main)](https://github.com/baseballyama/json-to-python/actions?query=workflow:ci)
+[![Coverage Status](https://coveralls.io/repos/github/baseballyama/json-to-python/badge.svg?branch=main)](https://coveralls.io/github/baseballyama/json-to-python?branch=main)
 
 # json-to-python
 
@@ -20,7 +20,7 @@ In other words, I want to convert JSON to TypedDict, but I could not find an eas
 # Usage
 
 This library supports browser execution and CLI execution.
-To execute in a browser, please execute from the [Playground](https://baseballyama.github.io/json-to-typeddict/).
+To execute in a browser, please execute from the [Playground](https://baseballyama.github.io/json-to-python/).
 To execute via CLI, use the following command.
 
 ```sh

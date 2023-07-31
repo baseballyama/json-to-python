@@ -3,4 +3,4 @@
 "playground": minor
 ---
 
-feat: support dataclass
+chore: change package name to json-to-python

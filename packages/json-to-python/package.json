@@ -1,13 +1,13 @@
 {
-  "name": "json-to-typeddict",
-  "description": "Simple utility to convert JSON to Python TypedDict",
+  "name": "json-to-python",
+  "description": "Simple utility to convert JSON to Python TypedDict or dataclass",
   "version": "0.3.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "json-to-typeddict": "./dist/cli.js"
+    "json-to-python": "./dist/cli.js"
   },
   "exports": {
     "./package.json": "./package.json",
