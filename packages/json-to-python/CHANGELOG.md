@@ -1,5 +1,11 @@
 # json-to-python
 
+## 0.5.2
+
+### Patch Changes
+
+- [#22](https://github.com/baseballyama/json-to-python/pull/22) [`f3820d4`](https://github.com/baseballyama/json-to-python/commit/f3820d49fb1bd47a103b7d0068e2c21346e3c91f) Thanks [@baseballyama](https://github.com/baseballyama)! - fix: fix cli import error
+
 ## 0.5.1
 
 ### Patch Changes
