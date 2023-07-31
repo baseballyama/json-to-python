@@ -1,7 +1,7 @@
 import { expect, describe, it } from "vitest";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { generate } from "./index.mjs";
+import { generate } from "./index";
 
 /**
  * @param {string} pathToDir
