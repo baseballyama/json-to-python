@@ -1,5 +1,11 @@
 # json-to-python
 
+## 0.5.1
+
+### Patch Changes
+
+- [#20](https://github.com/baseballyama/json-to-python/pull/20) [`3ed271a`](https://github.com/baseballyama/json-to-python/commit/3ed271acd3fd1ab13de3a291c4fd6d546a80df2d) Thanks [@baseballyama](https://github.com/baseballyama)! - fix `tsconfig.ts` for publish file
+
 ## 0.5.0
 
 ### Minor Changes
