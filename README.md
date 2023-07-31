@@ -28,7 +28,7 @@ npx json-to-typeddict <json-dir> <output-dir>
 npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
 ```
 
-# Changlog
+# Changelog
 
 Please see [./packages/json-to-typeddict/CHANGELOG.md](./packages/json-to-typeddict/CHANGELOG.md)
 
