@@ -3,7 +3,7 @@
 	import type { Transaction } from '@codemirror/state';
 	import Editor from '$lib/Editor.svelte';
 	import GitHub from '$lib/GitHub.svelte';
-	import { generate, type Config } from 'json-to-typeddict';
+	import { generate, type Config } from 'json-to-python';
 
 	export let data: import('./$types').PageData;
 
@@ -50,7 +50,7 @@
 				<p>Convert JSON to Python TypedDict or dataclass</p>
 			</div>
 			<div class="gh-wrapper">
-				<GitHub href="https://github.com/baseballyama/json-to-typeddict" />
+				<GitHub href="https://github.com/baseballyama/json-to-python" />
 			</div>
 		</header>
 

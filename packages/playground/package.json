@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
-		"build:json-to-typeddict": "cd ../json-to-typeddict && pnpm build && cd ../playground",
-		"build": "pnpm build:json-to-typeddict && vite build",
+		"build:json-to-python": "cd ../json-to-python && pnpm build && cd ../playground",
+		"build": "pnpm build:json-to-python && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -22,7 +22,7 @@
 		"eslint": "8.46.0",
 		"eslint-config-prettier": "8.9.0",
 		"eslint-plugin-svelte": "2.32.4",
-		"json-to-typeddict": "*",
+		"json-to-python": "*",
 		"prettier": "3.0.0",
 		"prettier-plugin-svelte": "3.0.3",
 		"svelte": "4.1.1",
@@ -38,6 +38,6 @@
 		"@codemirror/state": "6.2.1",
 		"@codemirror/view": "6.15.3",
 		"codemirror": "6.0.1",
-		"json-to-typeddict": "*"
+		"json-to-python": "*"
 	}
 }

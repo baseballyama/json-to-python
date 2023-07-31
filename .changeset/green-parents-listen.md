@@ -1,5 +1,5 @@
 ---
-"json-to-typeddict": minor
+"json-to-python": minor
 "playground": minor
 ---
 

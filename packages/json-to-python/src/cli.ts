@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * usage: npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
+ * usage: npx json-to-python <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
  */
 import {
   readdirSync,

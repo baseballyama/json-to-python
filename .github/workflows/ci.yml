@@ -26,4 +26,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: test project
-        run: cd packages/json-to-typeddict && pnpm test:all
+        run: cd packages/json-to-python && pnpm test:all

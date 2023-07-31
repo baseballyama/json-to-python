@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "baseballyama/json-to-typeddict"
+      "repo": "baseballyama/json-to-python"
     }
   ],
   "commit": false,

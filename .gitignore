@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # ----------------------------------------------------------------------
-packages/json-to-typeddict/fixtures/**/actual.py
+packages/json-to-python/fixtures/**/actual.py

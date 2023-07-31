@@ -1,4 +1,4 @@
-import { version } from 'json-to-typeddict/package.json';
+import { version } from 'json-to-python/package.json';
 
 export const load: import('./$types').PageServerLoad = () => {
 	return { version };
