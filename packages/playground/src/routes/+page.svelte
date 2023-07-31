@@ -3,7 +3,8 @@
 	import type { Transaction } from '@codemirror/state';
 	import Editor from '$lib/Editor.svelte';
 	import GitHub from '$lib/GitHub.svelte';
-	import { generate, type Config } from 'json-to-python';
+	// @ts-expect-error
+	import { generate, type Config } from 'json-to-python/browser';
 
 	export let data: import('./$types').PageData;
 

@@ -1,177 +1,55 @@
-export interface Config {
-  casing?: "camel" | "snake" | "none";
-  generate?: "typeddict" | "dataclass";
-}
+import { Config, generate } from "./main";
+import {
+  readdirSync,
+  readFileSync,
+  existsSync,
+  statSync,
+  mkdirSync,
+  writeFileSync,
+} from "fs";
+import { join, extname, relative, dirname, basename } from "path";
 
-type NonNullableConfig = Required<Config>;
+const getJsonFiles = (dir: string): string[] => {
+  let filesToReturn: string[] = [];
+  const files = readdirSync(dir);
 
-interface PythonClass {
-  className: string;
-  content: string;
-}
+  for (let file of files) {
+    const filePath = join(dir, file);
+    const stat = statSync(filePath);
 
-const normalizeClassName = (className: string): string => {
-  const parts = className
-    .split("_")
-    .map((part) => part.split("-"))
-    .flat();
-  return parts
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
-};
-
-const getTemplate = (generate: NonNullableConfig["generate"]): string => {
-  if (generate === "dataclass") {
-    return `\
-from dataclasses import dataclass
-from typing import Union, Any
-
-`;
-  }
-  return `\
-from typing import TypedDict, Union, Any
-
-`;
-};
-
-const parseJson = (jsonAsString: string): Record<string, unknown> => {
-  try {
-    return JSON.parse(jsonAsString);
-  } catch (e) {
-    throw new Error("Failed to parse JSON");
-  }
-};
-
-const normalizePropertyName = (
-  propertyName: string,
-  config: Config,
-): string => {
-  if (config.casing === "none") return propertyName;
-  if (config.casing === "snake") {
-    return propertyName
-      .split("-")
-      .map((n) => n.split(/(?=[A-Z])/))
-      .flat()
-      .join("_")
-      .toLowerCase();
-  }
-
-  return propertyName
-    .split("-")
-    .map((n) => n.split("_"))
-    .flat()
-    .map((n, i) => (i === 0 ? n : n.charAt(0).toUpperCase() + n.slice(1)))
-    .join("");
-};
-
-const generateClass = (
-  json: Record<string, unknown>,
-  className: string,
-  classes: PythonClass[],
-  config: NonNullableConfig,
-): PythonClass[] => {
-  let mClasses = [...classes];
-
-  const getPyType = (
-    key: string,
-    value: unknown,
-    className: string,
-  ): string => {
-    const type = typeof value;
-    if (value == null) {
-      return "None";
-    } else if (Array.isArray(value)) {
-      if (value.length === 0) {
-        return "list";
-      } else {
-        let classCount = 1;
-        let types: string[] = [];
-        for (const item of value) {
-          const prevLength = mClasses.length;
-          types.push(getPyType(key, item, className));
-          const curLength = mClasses.length;
-          if (curLength >= 2 && prevLength + 1 === curLength) {
-            const last = mClasses[mClasses.length - 1];
-            const secondLast = mClasses[mClasses.length - 2];
-            if (last && secondLast) {
-              if (last.content === secondLast.content) {
-                mClasses.pop();
-                types.pop();
-              } else {
-                classCount += 1;
-                last.className = `${last.className}${classCount}`;
-              }
-            }
-          }
-        }
-        types = Array.from(new Set(types));
-        if (types.length === 1) {
-          return `list[${types[0]}]`;
-        } else {
-          return `list[Union[${types.join(", ")}]]`;
-        }
-      }
-    } else if (type === "string") {
-      return "str";
-    } else if (type === "number") {
-      if (Number.isInteger(value)) {
-        return "int";
-      }
-      return "float";
-    } else if (type === "boolean") {
-      return "bool";
-    } else if (type === "object") {
-      const innerClassName = className + normalizeClassName(key);
-      mClasses = generateClass(value as any, innerClassName, mClasses, config);
-      return innerClassName;
-    }
-    console.error(`Unknown type ${type}`);
-    return "Any";
-  };
-
-  className = normalizeClassName(className);
-  const pythonClass: PythonClass = {
-    className,
-    content:
-      config.generate === "typeddict"
-        ? `class ${className}(TypedDict):\n`
-        : `@dataclass\nclass ${className}:\n`,
-  };
-  mClasses.push(pythonClass);
-  const keys = Object.keys(json);
-  if (keys.length === 0) {
-    pythonClass.content += "  pass\n";
-  } else {
-    for (const key of keys) {
-      const value = json[key];
-      const pyTyoe = getPyType(key, value, className);
-      const name = normalizePropertyName(key, config);
-      pythonClass.content += `  ${name}: ${pyTyoe}\n`;
+    if (stat.isDirectory()) {
+      filesToReturn = filesToReturn.concat(getJsonFiles(filePath));
+    } else if (stat.isFile() && extname(filePath) === ".json") {
+      filesToReturn.push(filePath);
     }
   }
 
-  return mClasses;
+  return filesToReturn;
 };
 
-export const generate = (
-  jsonAsString: string,
-  className: string,
-  config: Config = {},
-) => {
-  const mConfig: NonNullableConfig = {
-    casing: config.casing || "camel",
-    generate: config.generate || "typeddict",
-  };
-  const json = parseJson(jsonAsString);
-  className = normalizeClassName(className);
+const bulkGenerate = (jsonDir: string, outputDir: string, config: Config) => {
+  if (!jsonDir || !existsSync(jsonDir)) {
+    throw new Error("Please set a valid JSON directory");
+  }
+  if (!outputDir) {
+    throw new Error("Please set a valid output directory");
+  }
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true });
+  }
 
-  const classes = generateClass(json, className, [], mConfig);
+  for (const jsonFile of getJsonFiles(jsonDir)) {
+    const json = readFileSync(jsonFile, "utf-8");
+    const className = basename(jsonFile).split(".").slice(0, -1).join(".");
+    const python = generate(json, className, config);
+    const outputDirPath = join(outputDir, relative(jsonDir, dirname(jsonFile)));
 
-  return (
-    getTemplate(mConfig.generate) +
-    classes
-      .reverse()
-      .map((c) => c.content)
-      .join("\n")
-  );
+    if (!existsSync(outputDirPath))
+      mkdirSync(outputDirPath, { recursive: true });
+    const output = join(outputDirPath, `${className}.py`);
+    writeFileSync(output, python, "utf-8");
+    console.log(`Generated ${output}`);
+  }
 };
+
+export { Config, generate, bulkGenerate };
