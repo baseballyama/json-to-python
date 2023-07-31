@@ -2,9 +2,9 @@
 [![Build Status](https://github.com/baseballyama/json-to-typeddict/workflows/CI/badge.svg?branch=main)](https://github.com/baseballyama/json-to-typeddict/actions?query=workflow:ci)
 [![Coverage Status](https://coveralls.io/repos/github/baseballyama/json-to-typeddict/badge.svg?branch=main)](https://coveralls.io/github/baseballyama/json-to-typeddict?branch=main)
 
-# json-to-typeddict
+# json-to-python
 
-Simple utility to convert JSON to Python TypedDict
+Simple utility to convert JSON to Python TypedDict or dataclass.
 
 # Playground
 
@@ -25,7 +25,7 @@ To execute via CLI, use the following command.
 
 ```sh
 npx json-to-typeddict <json-dir> <output-dir>
-npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
+npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
 ```
 
 # Changelog

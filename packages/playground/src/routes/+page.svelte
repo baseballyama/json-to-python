@@ -3,10 +3,13 @@
 	import type { Transaction } from '@codemirror/state';
 	import Editor from '$lib/Editor.svelte';
 	import GitHub from '$lib/GitHub.svelte';
-	import { generate } from 'json-to-typeddict';
+	import { generate, type Config } from 'json-to-typeddict';
+
+	export let data: import('./$types').PageData;
 
 	let mainCLassName = 'Main';
-	let casing = 'none';
+	let casingConfig: Config['casing'] = 'none';
+	let generateConfig: Config['generate'] = 'typeddict';
 	let doc = JSON.stringify(
 		{
 			name: 'John',
@@ -24,16 +27,16 @@
 		null,
 		2
 	);
-	let python = generate(doc, mainCLassName, { casing });
+	let python = generate(doc, mainCLassName, { casing: casingConfig, generate: generateConfig });
 
 	const changeHandler = (_: EditorView, tr: Transaction) => {
 		doc = tr.state.doc.toString();
 	};
 
 	$: {
-		if (mainCLassName && doc && casing) {
+		if (mainCLassName && doc) {
 			try {
-				python = generate(doc, mainCLassName, { casing });
+				python = generate(doc, mainCLassName, { casing: casingConfig, generate: generateConfig });
 			} catch (e) {}
 		}
 	}
@@ -42,7 +45,10 @@
 <div class="wrapper">
 	<div class="content">
 		<header class="header">
-			<h1>JSON to Python TypedDict Converter</h1>
+			<div>
+				<h1>JSON to Python Converter (version {data.version})</h1>
+				<p>Convert JSON to Python TypedDict or dataclass</p>
+			</div>
 			<div class="gh-wrapper">
 				<GitHub href="https://github.com/baseballyama/json-to-typeddict" />
 			</div>
@@ -63,10 +69,17 @@
 				</div>
 				<div class="form-item">
 					<label for="casing">Casing:</label>
-					<select id="casing" name="selection" bind:value={casing}>
+					<select id="casing" name="selection" bind:value={casingConfig}>
 						<option value="none" selected>None</option>
 						<option value="camel">Camel</option>
 						<option value="snake">Snake</option>
+					</select>
+				</div>
+				<div class="form-item">
+					<label for="generate">Generate:</label>
+					<select id="generate" name="selection" bind:value={generateConfig}>
+						<option value="typeddict" selected>typeddict</option>
+						<option value="dataclass">dataclass</option>
 					</select>
 				</div>
 			</form>
@@ -101,6 +114,17 @@
 
 <style>
 	:global(body) {
+		margin: 0;
+		padding: 0;
+	}
+
+	h1,
+	h2 {
+		margin: 0;
+		padding: 8px 0;
+	}
+
+	p {
 		margin: 0;
 		padding: 0;
 	}
@@ -144,7 +168,7 @@
 	}
 
 	.form-item {
-		padding: 0 4px 4px 4px;
+		padding: 4px;
 		display: flex;
 		align-items: center;
 	}
@@ -187,6 +211,16 @@
 
 	.editors > .editor-wrapper > div {
 		width: 100%;
+	}
+
+	select {
+		height: 32px;
+		min-width: 160px;
+	}
+
+	input {
+		height: 24px;
+		min-width: 152px;
 	}
 
 	@media (max-width: 767px) {

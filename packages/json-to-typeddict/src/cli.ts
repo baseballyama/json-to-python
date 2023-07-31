@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * usage: npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
+ * usage: npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
  */
 import {
   readdirSync,
@@ -15,6 +15,7 @@ import { join, extname, relative, dirname, basename } from "path";
 import { generate, type Config } from "./index";
 
 type Casing = NonNullable<Config["casing"]>;
+type Generate = NonNullable<Config["generate"]>;
 
 const getCasing = (args: string[]): Casing => {
   const casingIndex = args.indexOf("--casing");
@@ -23,6 +24,15 @@ const getCasing = (args: string[]): Casing => {
   }
 
   return (args[casingIndex + 1] ?? "none") as Casing;
+};
+
+const getGenerate = (args: string[]): Generate => {
+  const generateIndex = args.indexOf("--generate");
+  if (generateIndex === -1 || generateIndex === args.length - 1) {
+    return "typeddict";
+  }
+
+  return (args[generateIndex + 1] ?? "typeddict") as Generate;
 };
 
 const getJsonFiles = (dir: string): string[] => {
@@ -46,8 +56,9 @@ const args = process.argv.slice(2);
 
 const jsonDir = args[0];
 const outputDir = args[1];
-const casing = getCasing(args);
-const config: Config = casing ? { casing } : {};
+const casingConfig = getCasing(args);
+const generateConfig = getGenerate(args);
+const config: Config = { casing: casingConfig, generate: generateConfig };
 
 if (!jsonDir || !existsSync(jsonDir)) {
   throw new Error("Please set a valid JSON directory");
