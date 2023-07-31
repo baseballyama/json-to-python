@@ -40,6 +40,8 @@
 			} catch (e) {}
 		}
 	}
+
+	$: generateLabel = generateConfig === 'typeddict' ? 'TypedDict' : 'dataclass';
 </script>
 
 <div class="wrapper">
@@ -96,7 +98,7 @@
 			<div class="arrow arrow-sp">↓</div>
 			<div class="editor-wrapper">
 				<div>
-					<h2>Python TypedDict (Generated)</h2>
+					<h2>Python {generateLabel} (Generated)</h2>
 					{#key python}
 						<Editor doc={python} />
 					{/key}
