@@ -5,7 +5,7 @@
  */
 import { readdirSync, existsSync, statSync, mkdirSync } from "fs";
 import { join, extname } from "path";
-import { bulkGenerate, type Config } from "./index";
+import { bulkGenerate, type Config } from "./index.js";
 
 type Casing = NonNullable<Config["casing"]>;
 type Generate = NonNullable<Config["generate"]>;
