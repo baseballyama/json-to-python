@@ -8,7 +8,7 @@ Simple utility to convert JSON to Python TypedDict or dataclass.
 
 # Playground
 
-https://baseballyama.github.io/json-to-typeddict/
+https://baseballyama.github.io/json-to-python/
 
 # Motivation
 
@@ -24,13 +24,13 @@ To execute in a browser, please execute from the [Playground](https://baseballya
 To execute via CLI, use the following command.
 
 ```sh
-npx json-to-typeddict <json-dir> <output-dir>
-npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
+npx json-to-python <json-dir> <output-dir>
+npx json-to-python <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
 ```
 
 # Changelog
 
-Please see [./packages/json-to-typeddict/CHANGELOG.md](./packages/json-to-typeddict/CHANGELOG.md)
+Please see [./packages/json-to-python/CHANGELOG.md](./packages/json-to-python/CHANGELOG.md)
 
 # Contributing
 
