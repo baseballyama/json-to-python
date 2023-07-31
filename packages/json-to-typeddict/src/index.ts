@@ -1,6 +1,9 @@
 export interface Config {
   casing?: "camel" | "snake" | "none";
+  generate?: "typeddict" | "dataclass";
 }
+
+type NonNullableConfig = Required<Config>;
 
 interface PythonClass {
   className: string;
@@ -17,10 +20,19 @@ const normalizeClassName = (className: string): string => {
     .join("");
 };
 
-const getTemplate = (): string => `\
+const getTemplate = (generate: NonNullableConfig["generate"]): string => {
+  if (generate === "dataclass") {
+    return `\
+from dataclasses import dataclass
+from typing import Union, Any
+
+`;
+  }
+  return `\
 from typing import TypedDict, Union, Any
 
 `;
+};
 
 const parseJson = (jsonAsString: string): Record<string, unknown> => {
   try {
@@ -56,7 +68,7 @@ const generateClass = (
   json: Record<string, unknown>,
   className: string,
   classes: PythonClass[],
-  config: Config,
+  config: NonNullableConfig,
 ): PythonClass[] => {
   let mClasses = [...classes];
 
@@ -73,8 +85,7 @@ const generateClass = (
         return "list";
       } else {
         let classCount = 1;
-        /** @type {string[]} */
-        let types = [];
+        let types: string[] = [];
         for (const item of value) {
           const prevLength = mClasses.length;
           types.push(getPyType(key, item, className));
@@ -121,7 +132,10 @@ const generateClass = (
   className = normalizeClassName(className);
   const pythonClass: PythonClass = {
     className,
-    content: `class ${className}(TypedDict):\n`,
+    content:
+      config.generate === "typeddict"
+        ? `class ${className}(TypedDict):\n`
+        : `@dataclass\nclass ${className}:\n`,
   };
   mClasses.push(pythonClass);
   const keys = Object.keys(json);
@@ -144,13 +158,17 @@ export const generate = (
   className: string,
   config: Config = {},
 ) => {
+  const mConfig: NonNullableConfig = {
+    casing: config.casing || "camel",
+    generate: config.generate || "typeddict",
+  };
   const json = parseJson(jsonAsString);
   className = normalizeClassName(className);
 
-  const classes = generateClass(json, className, [], config);
+  const classes = generateClass(json, className, [], mConfig);
 
   return (
-    getTemplate() +
+    getTemplate(mConfig.generate) +
     classes
       .reverse()
       .map((c) => c.content)

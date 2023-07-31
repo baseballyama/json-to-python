@@ -25,7 +25,7 @@ To execute via CLI, use the following command.
 
 ```sh
 npx json-to-typeddict <json-dir> <output-dir>
-npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none>
+npx json-to-typeddict <json-dir> <output-dir> --casing <camel|snake|none> --generate <typeddict|dataclass>
 ```
 
 # Changelog
