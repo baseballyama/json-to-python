@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@tsconfig/strictest": "2.0.1",
-    "@types/node": "20.12.10",
+    "@types/node": "20.12.11",
     "@vitest/coverage-v8": "1.6.0",
     "prettier": "3.2.5",
     "publint": "0.2.7",
