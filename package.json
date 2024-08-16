@@ -25,11 +25,11 @@
   "devDependencies": {
     "@tsconfig/strictest": "2.0.1",
     "@types/node": "20.14.15",
-    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/coverage-v8": "2.0.3",
     "prettier": "3.3.3",
     "publint": "0.2.9",
     "typescript": "5.5.4",
-    "vitest": "1.6.0"
+    "vitest": "2.0.3"
   },
   "dependencies": {
     "@changesets/changelog-github": "0.5.0",
