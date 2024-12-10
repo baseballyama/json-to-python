@@ -23,7 +23,7 @@
     "pnpm": ">=8.6.9"
   },
   "devDependencies": {
-    "@tsconfig/strictest": "2.0.1",
+    "@tsconfig/strictest": "2.0.5",
     "@types/node": "20.17.9",
     "@vitest/coverage-v8": "2.1.8",
     "prettier": "3.4.2",
