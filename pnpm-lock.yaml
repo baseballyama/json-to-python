@@ -28,8 +28,8 @@ importers:
         specifier: 3.4.2
         version: 3.4.2
       publint:
-        specifier: 0.3.3
-        version: 0.3.3
+        specifier: 0.3.4
+        version: 0.3.4
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -1549,8 +1549,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  publint@0.3.3:
-    resolution: {integrity: sha512-ybYsZ0sUJWpb+Fn5fp6XFsWF81z73ZRgKV72s7PrxDvrtVMUmMfUl3aiyKv50oz96lCMrwA8hgyJLzavqYu+Bg==}
+  publint@0.3.4:
+    resolution: {integrity: sha512-szQCgQXxLgrI2P+3Znv/KUiglp3YA+A2MeI+9Izjs01Ol5KXKCkdbmz69bM/ivPKMYKHhtKOKkib9VJ6JL3H/w==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3419,7 +3419,7 @@ snapshots:
 
   prettier@3.4.2: {}
 
-  publint@0.3.3:
+  publint@0.3.4:
     dependencies:
       '@publint/pack': 0.1.1
       package-manager-detector: 0.2.9
