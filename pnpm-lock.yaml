@@ -28,8 +28,8 @@ importers:
         specifier: 3.4.2
         version: 3.4.2
       publint:
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.11
+        version: 0.3.11
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -502,8 +502,8 @@ packages:
   '@polka/url@1.0.0-next.24':
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
 
-  '@publint/pack@0.1.1':
-    resolution: {integrity: sha512-TvCl79Y8v18ZhFGd5mjO1kYPovSBq3+4LVCi5Nfl1JI8fS8i8kXbgQFGwBJRXczim8GlW8c2LMBKTtExYXOy/A==}
+  '@publint/pack@0.1.2':
+    resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
   '@rollup/rollup-android-arm-eabi@4.21.0':
@@ -1450,8 +1450,8 @@ packages:
   package-manager-detector@0.2.8:
     resolution: {integrity: sha512-ts9KSdroZisdvKMWVAVCXiKqnqNfXz4+IbrBG8/BWx/TR5le+jfenvoBuIZ6UWM9nz47W7AbD9qYfAwfWMIwzA==}
 
-  package-manager-detector@0.2.9:
-    resolution: {integrity: sha512-+vYvA/Y31l8Zk8dwxHhL3JfTuHPm6tlxM2A3GeQyl7ovYnSp1+mzAxClxaOr0qO1TtPxbQxetI7v5XqKLJZk7Q==}
+  package-manager-detector@1.1.0:
+    resolution: {integrity: sha512-Y8f9qUlBzW8qauJjd/eu6jlpJZsuPJm2ZAV0cDVd420o4EdpH5RPdoCv+60/TdJflGatr4sDfpAL6ArWZbM5tA==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -1553,8 +1553,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  publint@0.3.5:
-    resolution: {integrity: sha512-/84pl/T/emCA5hHmNYqsE/x0Voikg278QmFwNiORYqnZgqeII2HSZ+aAGs4frfDpOCQlU1SAgYloz8ayJGMbIg==}
+  publint@0.3.11:
+    resolution: {integrity: sha512-snArkBXO8Sl1Nlnqr3Y3DCT9CzNw8QxzlFXZ6nRkyEPEUGPRg25lM4IjNQyIyp3vRwpsZ24EEexmKSIZdVMizA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2425,7 +2425,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.24': {}
 
-  '@publint/pack@0.1.1': {}
+  '@publint/pack@0.1.2': {}
 
   '@rollup/rollup-android-arm-eabi@4.21.0':
     optional: true
@@ -3384,7 +3384,7 @@ snapshots:
 
   package-manager-detector@0.2.8: {}
 
-  package-manager-detector@0.2.9: {}
+  package-manager-detector@1.1.0: {}
 
   parent-module@1.0.1:
     dependencies:
@@ -3458,10 +3458,10 @@ snapshots:
 
   prettier@3.4.2: {}
 
-  publint@0.3.5:
+  publint@0.3.11:
     dependencies:
-      '@publint/pack': 0.1.1
-      package-manager-detector: 0.2.9
+      '@publint/pack': 0.1.2
+      package-manager-detector: 1.1.0
       picocolors: 1.1.1
       sade: 1.8.1
 
