@@ -28,7 +28,7 @@
     "@vitest/coverage-v8": "2.1.9",
     "prettier": "3.6.2",
     "publint": "0.3.12",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vitest": "2.1.9"
   },
   "dependencies": {
