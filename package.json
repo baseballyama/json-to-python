@@ -27,7 +27,7 @@
     "@types/node": "20.19.30",
     "@vitest/coverage-v8": "2.1.9",
     "prettier": "3.7.4",
-    "publint": "0.3.16",
+    "publint": "0.3.17",
     "typescript": "5.9.3",
     "vitest": "2.1.9"
   },
