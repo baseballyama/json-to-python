@@ -29,7 +29,7 @@
     "prettier": "3.9.6",
     "publint": "0.3.24",
     "typescript": "5.9.3",
-    "vitest": "2.1.9"
+    "vitest": "3.2.6"
   },
   "dependencies": {
     "@changesets/changelog-github": "0.6.0",
